@@ -2,21 +2,61 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Trophy } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
-import { useLanguage } from '../context/LanguageContext'
+import { useLanguage, tr } from '../context/LanguageContext'
 
 const milestones = [
-  { year: '2016', title: 'First Steps in Video Editing', desc: 'Discovered a passion for video editing at a young age, self-teaching the craft to create early YouTube content.', color: '#FFB830' },
-  { year: '2017', title: 'Launched YouTube Content Journey', desc: 'Began producing and publishing original YouTube videos, building foundational skills in storytelling and post-production.', color: '#4FACFE' },
-  { year: '2022', title: 'Engineering Preparatory Studies', desc: 'Joined ISSAT Mahdia for an intensive two-year preparatory program in mathematics, physics, and engineering fundamentals.', color: '#7B6FF0' },
-  { year: '2023', title: 'First Freelance Video Editing Client', desc: 'Secured first paid video editing project on Upwork, marking the start of a professional freelance career.', color: '#00E5A0' },
-  { year: '2024', title: 'Admitted to École Polytechnique de Sousse', desc: 'Began the Computer Engineering program at EPS, specializing in software engineering, AI, and data systems.', color: '#FF4E8A' },
-  { year: '2025', title: 'Achieved Top Rated Status on Upwork', desc: 'Earned Upwork\'s Top Rated badge, reflecting consistent client satisfaction and professional-grade video editing delivery.', color: '#4FACFE' },
-  { year: '2025', title: 'Video Editing Team Lead at ClueCut', desc: 'Promoted to lead a team of 6 video editors, overseeing the production of 100+ videos for Dreaming French, a leading French-language learning platform.', color: '#7B6FF0' },
-  { year: '2025', title: 'Delivered First Professional Website', desc: 'Designed and built a full website for a fitness education brand, expanding expertise into professional web development.', color: '#00E5A0' },
+  {
+    year: '2016', title: 'First Steps in Video Editing', titleFr: 'Premiers Pas dans le Montage Vidéo',
+    desc: 'Discovered a passion for video editing at a young age, self-teaching the craft to create early YouTube content.',
+    descFr: 'A découvert une passion pour le montage vidéo dès son plus jeune âge, en autodidacte, pour créer ses premiers contenus YouTube.',
+    color: '#FFB830',
+  },
+  {
+    year: '2017', title: 'Launched YouTube Content Journey', titleFr: 'Lancement du Parcours de Contenu YouTube',
+    desc: 'Began producing and publishing original YouTube videos, building foundational skills in storytelling and post-production.',
+    descFr: 'A commencé à produire et publier des vidéos YouTube originales, développant des compétences fondamentales en narration et post-production.',
+    color: '#4FACFE',
+  },
+  {
+    year: '2022', title: 'Engineering Preparatory Studies', titleFr: 'Études Préparatoires d\'Ingénierie',
+    desc: 'Joined ISSAT Mahdia for an intensive two-year preparatory program in mathematics, physics, and engineering fundamentals.',
+    descFr: 'A rejoint l\'ISSAT Mahdia pour un programme préparatoire intensif de deux ans en mathématiques, physique et fondamentaux de l\'ingénierie.',
+    color: '#7B6FF0',
+  },
+  {
+    year: '2023', title: 'First Freelance Video Editing Client', titleFr: 'Premier Client Freelance en Montage Vidéo',
+    desc: 'Secured first paid video editing project on Upwork, marking the start of a professional freelance career.',
+    descFr: 'A décroché son premier projet de montage vidéo rémunéré sur Upwork, marquant le début d\'une carrière freelance professionnelle.',
+    color: '#00E5A0',
+  },
+  {
+    year: '2024', title: 'Admitted to École Polytechnique de Sousse', titleFr: 'Admis à l\'École Polytechnique de Sousse',
+    desc: 'Began the Computer Engineering program at EPS, specializing in software engineering, AI, and data systems.',
+    descFr: 'A commencé le programme de génie informatique à l\'EPS, se spécialisant en génie logiciel, IA et systèmes de données.',
+    color: '#FF4E8A',
+  },
+  {
+    year: '2025', title: 'Achieved Top Rated Status on Upwork', titleFr: 'Statut Top Rated Obtenu sur Upwork',
+    desc: 'Earned Upwork\'s Top Rated badge, reflecting consistent client satisfaction and professional-grade video editing delivery.',
+    descFr: 'A obtenu le badge Top Rated d\'Upwork, reflétant une satisfaction client constante et des livraisons de montage vidéo de qualité professionnelle.',
+    color: '#4FACFE',
+  },
+  {
+    year: '2025', title: 'Video Editing Team Lead at ClueCut', titleFr: 'Responsable d\'Équipe Montage chez ClueCut',
+    desc: 'Promoted to lead a team of 6 video editors, overseeing the production of 100+ videos for Dreaming French, a leading French-language learning platform.',
+    descFr: 'Promu responsable d\'une équipe de 6 monteurs vidéo, supervisant la production de plus de 100 vidéos pour Dreaming French, une plateforme leader d\'apprentissage du français.',
+    color: '#7B6FF0',
+  },
+  {
+    year: '2025', title: 'Delivered First Professional Website', titleFr: 'Premier Site Web Professionnel Livré',
+    desc: 'Designed and built a full website for a fitness education brand, expanding expertise into professional web development.',
+    descFr: 'A conçu et développé un site web complet pour une marque d\'éducation fitness, élargissant son expertise au développement web professionnel.',
+    color: '#00E5A0',
+  },
 ]
 
 export default function Achievements() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   return (
     <PageTransition>
       <div className="pt-24 pb-20 px-6">
@@ -63,8 +103,8 @@ export default function Achievements() {
                     <div className="glass rounded-2xl p-5 border border-[var(--border-faint)]"
                       style={{ borderLeft: `3px solid ${m.color}` }}>
                       <span className="text-xs font-mono" style={{ color: m.color }}>{m.year}</span>
-                      <h3 className="font-display font-semibold text-[var(--text-primary)] mt-1">{m.title}</h3>
-                      <p className="text-sm text-[var(--text-muted)] font-body mt-1.5 leading-relaxed">{m.desc}</p>
+                      <h3 className="font-display font-semibold text-[var(--text-primary)] mt-1">{tr(m, 'title', lang)}</h3>
+                      <p className="text-sm text-[var(--text-muted)] font-body mt-1.5 leading-relaxed">{tr(m, 'desc', lang)}</p>
                     </div>
                   </div>
 

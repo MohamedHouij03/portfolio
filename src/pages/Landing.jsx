@@ -138,19 +138,22 @@ export default function Landing() {
             transition={{ delay: 1.2 }}
             className="flex justify-center mt-4"
           >
-            <motion.div
+            <motion.button
+              type="button"
+              onClick={() => document.getElementById('choose-experience')?.scrollIntoView({ behavior: 'smooth' })}
+              aria-label="Scroll to next section"
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.8, repeat: Infinity }}
-              className="text-[var(--text-faint)]"
+              className="text-[var(--text-faint)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
             >
               <ChevronDown size={22} />
-            </motion.div>
+            </motion.button>
           </motion.div>
         </div>
       </section>
 
       {/* ── Choose Your Experience ─────────────────────────────────────── */}
-      <section className="py-20 px-6 relative">
+      <section id="choose-experience" className="py-20 px-6 relative">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -312,28 +315,27 @@ export default function Landing() {
 
       {/* ── Marquee Banner ───────────────────────────────────────────────── */}
       <div className="border-y border-[var(--border-line)] py-4 overflow-hidden">
-        <div className="flex">
-          {[0, 1].map(i => (
-            <motion.div
-              key={i}
-              className="flex gap-0 shrink-0"
-              animate={{ x: i === 0 ? [0, '-100%'] : ['100%', '0%'] }}
-              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-              style={{ willChange: 'transform' }}
-            >
-              {t.landing.marquee.map((label, j) => {
+        <motion.div
+          className="flex gap-0 w-max"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          style={{ willChange: 'transform' }}
+        >
+          {[0, 1].flatMap(copy =>
+            [0, 1, 2].flatMap(rep =>
+              t.landing.marquee.map((label, j) => {
                 const Icon = marqueeIcons[j]
                 const color = marqueeColors[j]
                 return (
-                  <span key={j} className="flex items-center gap-2.5 px-5 text-sm font-mono text-[var(--text-faint)] whitespace-nowrap">
+                  <span key={`${copy}-${rep}-${j}`} className="flex items-center gap-2.5 px-5 text-sm font-mono text-[var(--text-faint)] whitespace-nowrap">
                     <Icon size={16} style={{ color, flexShrink: 0 }} />
                     {label}
                   </span>
                 )
-              })}
-            </motion.div>
-          ))}
-        </div>
+              })
+            )
+          )}
+        </motion.div>
       </div>
     </PageTransition>
   )

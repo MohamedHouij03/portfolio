@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Github, ExternalLink, Code2, Brain, Database, Layers, GraduationCap, Briefcase, ImageOff, Rocket, Calculator } from 'lucide-react'
+import { ArrowRight, Github, ExternalLink, Code2, Brain, Database, Layers, GraduationCap, Briefcase, ImageOff, Rocket, Calculator, Server, Smartphone, BarChart3, Network, Wrench } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/common/PageTransition'
 import BorderGlow from '../components/common/BorderGlow'
 import { techSkills, education, projects, experience } from '../data/technical'
-import { useLanguage } from '../context/LanguageContext'
+import { useLanguage, tr } from '../context/LanguageContext'
 
 /* ── Skill Chip ──────────────────────────────────────────────────────────── */
 function SkillChip({ name, color, index }) {
@@ -29,7 +29,7 @@ function SkillChip({ name, color, index }) {
 }
 
 /* ── Project Card ────────────────────────────────────────────────────────── */
-function ProjectCard({ p, previewSoonLabel }) {
+function ProjectCard({ p, previewSoonLabel, lang }) {
   const Wrapper = p.github ? 'a' : 'div'
   const wrapperProps = p.github
     ? { href: p.github, target: '_blank', rel: 'noopener noreferrer' }
@@ -78,10 +78,10 @@ function ProjectCard({ p, previewSoonLabel }) {
           <div>
             <p className="text-xs font-mono mb-0.5" style={{ color: p.color }}>{p.year}</p>
             <h3 className="font-display font-semibold text-[var(--text-primary)]">{p.title}</h3>
-            <p className="text-xs text-[var(--text-dim)] font-mono mt-0.5">{p.subtitle}</p>
+            <p className="text-xs text-[var(--text-dim)] font-mono mt-0.5">{tr(p, 'subtitle', lang)}</p>
           </div>
 
-          <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed flex-1">{p.description}</p>
+          <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed flex-1">{tr(p, 'description', lang)}</p>
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-1.5 pt-1 mt-auto">
@@ -99,12 +99,12 @@ function ProjectCard({ p, previewSoonLabel }) {
 }
 
 const projectCategories = ['All', 'AI', 'Data Science', 'Computer Vision', 'Web Development', 'Mobile Applications']
-const skillTabIcons = { programming: Code2, dataScience: Database, ai: Brain, development: Layers }
+const skillTabIcons = { frontend: Layers, backend: Server, databases: Database, mobile: Smartphone, ai: Brain, dataViz: BarChart3, networking: Network, tools: Wrench }
 
 export default function TechnicalPortfolio() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [activeFilter, setActiveFilter] = useState('All')
-  const [activeSkillTab, setActiveSkillTab] = useState('programming')
+  const [activeSkillTab, setActiveSkillTab] = useState('frontend')
 
   const filtered = activeFilter === 'All'
     ? projects
@@ -213,17 +213,17 @@ export default function TechnicalPortfolio() {
                           }
                           <span className="text-xs font-mono px-2.5 py-1 rounded-full"
                             style={{ background: `${edu.color}15`, color: edu.color, border: `1px solid ${edu.color}30` }}>
-                            {edu.period}
+                            {tr(edu, 'period', lang)}
                           </span>
                         </div>
                         <h3 className="font-display font-bold text-[var(--text-primary)] text-lg">{edu.degree}</h3>
                         <p className="text-[#4FACFE] font-body font-medium">{edu.school}</p>
-                        <p className="text-xs text-[var(--text-dim)] font-mono">{edu.location}</p>
+                        <p className="text-xs text-[var(--text-dim)] font-mono">{tr(edu, 'location', lang)}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-[var(--text-muted)] font-body mt-3 leading-relaxed">{edu.description}</p>
+                    <p className="text-sm text-[var(--text-muted)] font-body mt-3 leading-relaxed">{tr(edu, 'description', lang)}</p>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {edu.tags.map(tag => (
+                      {tr(edu, 'tags', lang).map(tag => (
                         <span key={tag} className="px-2.5 py-1 text-xs font-mono rounded-lg bg-[var(--border-faint)] text-[var(--text-dim)] border border-[var(--border-soft)]">{tag}</span>
                       ))}
                     </div>
@@ -324,7 +324,7 @@ export default function TechnicalPortfolio() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence>
-                {filtered.map(p => <ProjectCard key={p.id} p={p} previewSoonLabel={t.technical.previewSoon} />)}
+                {filtered.map(p => <ProjectCard key={p.id} p={p} previewSoonLabel={t.technical.previewSoon} lang={lang} />)}
               </AnimatePresence>
             </div>
           </div>
@@ -363,15 +363,15 @@ export default function TechnicalPortfolio() {
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-[rgba(79,172,254,0.1)] text-[#4FACFE] border border-[rgba(79,172,254,0.2)]">{exp.type}</span>
+                          <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-[rgba(79,172,254,0.1)] text-[#4FACFE] border border-[rgba(79,172,254,0.2)]">{tr(exp, 'type', lang)}</span>
                           <span className="text-xs font-mono text-[var(--text-dim)]">{exp.period}</span>
                         </div>
-                        <h3 className="font-display font-bold text-[var(--text-primary)]">{exp.title}</h3>
+                        <h3 className="font-display font-bold text-[var(--text-primary)]">{tr(exp, 'title', lang)}</h3>
                         <p className="text-[#4FACFE] text-sm font-body font-medium">{exp.company}</p>
-                        <p className="text-xs text-[var(--text-dim)] font-mono">{exp.location}</p>
+                        <p className="text-xs text-[var(--text-dim)] font-mono">{tr(exp, 'location', lang)}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed mb-3">{exp.description}</p>
+                    <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed mb-3">{tr(exp, 'description', lang)}</p>
                     <div className="flex flex-wrap gap-2">
                       {exp.skills.map(s => (
                         <span key={s} className="px-2.5 py-1 text-xs font-mono rounded-lg bg-[var(--border-faint)] text-[var(--text-dim)] border border-[var(--border-soft)]">{s}</span>

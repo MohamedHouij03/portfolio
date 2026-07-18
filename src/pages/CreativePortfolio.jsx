@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Film, Zap, Smartphone, Sparkles, Megaphone, Mic, Building2, BookOpen } from 'lucide-react'
+import { Play, Film, Zap, Smartphone, Sparkles, Megaphone, Mic, Building2, BookOpen, PhoneCall, FolderUp, Scissors, RefreshCw, Rocket } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/common/PageTransition'
 import BorderGlow from '../components/common/BorderGlow'
 import ScrollStack, { ScrollStackItem } from '../components/common/ScrollStack'
 import { services, portfolioItems, testimonials, workflow, stats } from '../data/creative'
 import { useAnimatedCounter } from '../hooks/useAnimatedCounter'
-import { useLanguage } from '../context/LanguageContext'
+import { useLanguage, tr } from '../context/LanguageContext'
 
 /* ── Animated Stat ───────────────────────────────────────────────────────── */
 function StatCard({ value, suffix, label, icon, color, badge }) {
@@ -43,7 +43,7 @@ function StatCard({ value, suffix, label, icon, color, badge }) {
 }
 
 /* ── Portfolio Card ──────────────────────────────────────────────────────── */
-function PortfolioCard({ item, beforeLabel, afterLabel }) {
+function PortfolioCard({ item, beforeLabel, afterLabel, lang }) {
   const Wrapper = item.link ? 'a' : 'div'
   const wrapperProps = item.link
     ? { href: item.link, target: '_blank', rel: 'noopener noreferrer' }
@@ -86,10 +86,10 @@ function PortfolioCard({ item, beforeLabel, afterLabel }) {
         {/* Content */}
         <div className="relative z-10 p-5 space-y-3">
           <div>
-            <h3 className="font-display font-semibold text-[var(--text-primary)]">{item.title}</h3>
-            <p className="text-xs text-[var(--text-dim)] font-mono mt-0.5">{item.client}</p>
+            <h3 className="font-display font-semibold text-[var(--text-primary)]">{tr(item, 'title', lang)}</h3>
+            <p className="text-xs text-[var(--text-dim)] font-mono mt-0.5">{tr(item, 'client', lang)}</p>
           </div>
-          <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed">{item.description}</p>
+          <p className="text-sm text-[var(--text-muted)] font-body leading-relaxed">{tr(item, 'description', lang)}</p>
 
           {/* Metrics */}
           {item.before && item.after && (
@@ -107,7 +107,7 @@ function PortfolioCard({ item, beforeLabel, afterLabel }) {
 
           {item.results && (
             <div className="flex items-center gap-2 text-xs font-mono pt-1" style={{ color: item.color }}>
-              {item.results}
+              {tr(item, 'results', lang)}
             </div>
           )}
         </div>
@@ -127,16 +127,27 @@ const serviceIcons = {
   'Educational Videos': BookOpen,
 }
 
-const categories = ['All', 'Vlog', 'Educational', 'Health', 'Documentary', '3D Animation', 'Business']
+const workflowIcons = { '01': PhoneCall, '02': FolderUp, '03': Scissors, '04': RefreshCw, '05': Rocket }
+
+const categories = ['All', 'Documentary', 'Vlog', 'Educational', 'Health', '3D Animation', 'Business']
 
 export default function CreativePortfolio() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [activeFilter, setActiveFilter] = useState('All')
   const [activeTestimonial, setActiveTestimonial] = useState(0)
+  const [testimonialPaused, setTestimonialPaused] = useState(false)
 
   const filtered = activeFilter === 'All'
     ? portfolioItems
     : portfolioItems.filter(p => p.category === activeFilter)
+
+  useEffect(() => {
+    if (testimonialPaused) return
+    const id = setInterval(() => {
+      setActiveTestimonial(i => (i + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [testimonialPaused])
 
   return (
     <PageTransition>
@@ -211,7 +222,7 @@ export default function CreativePortfolio() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
               >
-                <StatCard {...s} />
+                <StatCard {...s} label={tr(s, 'label', lang)} />
               </motion.div>
             ))}
           </div>
@@ -255,8 +266,8 @@ export default function CreativePortfolio() {
                         <Icon size={24} style={{ color: s.color }} />
                       </div>
                       <div>
-                        <h3 className="font-display font-semibold text-[var(--text-primary)] text-lg mb-1.5">{s.title}</h3>
-                        <p className="text-sm text-[var(--text-dim)] leading-relaxed font-body">{s.desc}</p>
+                        <h3 className="font-display font-semibold text-[var(--text-primary)] text-lg mb-1.5">{tr(s, 'title', lang)}</h3>
+                        <p className="text-sm text-[var(--text-dim)] leading-relaxed font-body">{tr(s, 'desc', lang)}</p>
                       </div>
                     </div>
                   </ScrollStackItem>
@@ -304,7 +315,7 @@ export default function CreativePortfolio() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <AnimatePresence>
-                {filtered.map(item => <PortfolioCard key={item.id} item={item} beforeLabel={t.creative.before} afterLabel={t.creative.after} />)}
+                {filtered.map(item => <PortfolioCard key={item.id} item={item} beforeLabel={t.creative.before} afterLabel={t.creative.after} lang={lang} />)}
               </AnimatePresence>
             </div>
           </div>
@@ -333,20 +344,22 @@ export default function CreativePortfolio() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="testimonial-card"
+              onMouseEnter={() => setTestimonialPaused(true)}
+              onMouseLeave={() => setTestimonialPaused(false)}
+              className="testimonial-card relative overflow-hidden"
             >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTestimonial}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.35 }}
-                  className="space-y-4"
+                  initial={{ opacity: 0, x: 24, scale: 0.98 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -24, scale: 0.98 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="min-h-[340px] sm:min-h-[260px] md:min-h-[220px] flex flex-col justify-between gap-4"
                 >
 
                   <p className="text-[var(--text-secondary)] text-lg leading-relaxed font-body italic">
-                    "{testimonials[activeTestimonial].feedback}"
+                    "{tr(testimonials[activeTestimonial], 'feedback', lang)}"
                   </p>
                   <div className="flex items-center gap-3 pt-2">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-display font-semibold"
@@ -359,7 +372,10 @@ export default function CreativePortfolio() {
                     </div>
                     <div>
                       <p className="font-display font-semibold text-[var(--text-primary)]">{testimonials[activeTestimonial].name}</p>
-                      <p className="text-xs text-[var(--text-dim)] font-mono">{testimonials[activeTestimonial].role} — {testimonials[activeTestimonial].company}</p>
+                      <p className="text-xs text-[var(--text-dim)] font-mono">
+                        {tr(testimonials[activeTestimonial], 'role', lang)}
+                        {testimonials[activeTestimonial].company && ` — ${tr(testimonials[activeTestimonial], 'company', lang)}`}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -371,12 +387,23 @@ export default function CreativePortfolio() {
                   <button
                     key={i}
                     onClick={() => setActiveTestimonial(i)}
-                    className="h-1.5 rounded-full transition-all duration-300"
+                    className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
                     style={{
-                      width: i === activeTestimonial ? '24px' : '8px',
-                      background: i === activeTestimonial ? 'linear-gradient(90deg, #784BA0, #FF4E8A)' : 'var(--border-medium)'
+                      width: i === activeTestimonial ? '32px' : '8px',
+                      background: 'var(--border-medium)'
                     }}
-                  />
+                  >
+                    {i === activeTestimonial && (
+                      <motion.span
+                        key={`${activeTestimonial}-${testimonialPaused}`}
+                        className="absolute inset-y-0 left-0 rounded-full"
+                        style={{ background: 'linear-gradient(90deg, #784BA0, #FF4E8A)' }}
+                        initial={{ width: '0%' }}
+                        animate={{ width: testimonialPaused ? '0%' : '100%' }}
+                        transition={{ duration: testimonialPaused ? 0.2 : 5, ease: 'linear' }}
+                      />
+                    )}
+                  </button>
                 ))}
               </div>
             </motion.div>
@@ -408,23 +435,31 @@ export default function CreativePortfolio() {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(120,75,160,0.3), transparent)' }} />
 
               <div className="grid md:grid-cols-5 gap-5">
-                {workflow.map((step, i) => (
-                  <motion.div
-                    key={step.step}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex flex-col items-center text-center space-y-3"
-                  >
-                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl relative z-10"
-                      style={{ background: `${step.color}18`, border: `1px solid ${step.color}35` }}>
-                    </div>
-                    <p className="text-xs font-mono" style={{ color: step.color }}>{step.step}</p>
-                    <h3 className="font-display font-semibold text-[var(--text-primary)] text-sm">{step.title}</h3>
-                    <p className="text-xs text-[var(--text-dim)] font-body leading-relaxed">{step.desc}</p>
-                  </motion.div>
-                ))}
+                {workflow.map((step, i) => {
+                  const Icon = workflowIcons[step.step] || Sparkles
+                  return (
+                    <motion.div
+                      key={step.step}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex flex-col items-center text-center space-y-3"
+                    >
+                      <motion.div
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center relative z-10"
+                        style={{ background: `${step.color}18`, border: `1px solid ${step.color}35` }}
+                        whileHover={{ scale: 1.1, rotate: -6 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 12 }}
+                      >
+                        <Icon size={24} style={{ color: step.color }} />
+                      </motion.div>
+                      <p className="text-xs font-mono" style={{ color: step.color }}>{step.step}</p>
+                      <h3 className="font-display font-semibold text-[var(--text-primary)] text-sm">{tr(step, 'title', lang)}</h3>
+                      <p className="text-xs text-[var(--text-dim)] font-body leading-relaxed">{tr(step, 'desc', lang)}</p>
+                    </motion.div>
+                  )
+                })}
               </div>
             </div>
           </div>

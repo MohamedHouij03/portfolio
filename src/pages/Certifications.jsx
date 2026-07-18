@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Award, ExternalLink, Calendar } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
 import { certifications } from '../data/technical'
-import { useLanguage } from '../context/LanguageContext'
+import { useLanguage, tr } from '../context/LanguageContext'
 
 const categories = ['All', 'Cloud', 'AI', 'Data Science']
 
-function CertCard({ cert, i }) {
+function CertCard({ cert, i, lang }) {
   return (
     <motion.div
       layout
@@ -40,7 +40,7 @@ function CertCard({ cert, i }) {
           </h3>
         </a>
         <p className="text-xs text-[var(--text-dim)] font-body leading-relaxed">
-          {cert.description}
+          {tr(cert, 'description', lang)}
         </p>
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-dim)]">
@@ -58,7 +58,7 @@ function CertCard({ cert, i }) {
 }
 
 export default function Certifications() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [active, setActive] = useState('All')
   const filtered = active === 'All' ? certifications : certifications.filter(c => c.category === active)
 
@@ -130,7 +130,7 @@ export default function Certifications() {
           {/* Cert Grid */}
           <div className="grid md:grid-cols-2 gap-4">
             <AnimatePresence>
-              {filtered.map((cert, i) => <CertCard key={cert.credentialId} cert={cert} i={i} />)}
+              {filtered.map((cert, i) => <CertCard key={cert.credentialId} cert={cert} i={i} lang={lang} />)}
             </AnimatePresence>
           </div>
 
