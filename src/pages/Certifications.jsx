@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Award, ExternalLink, Calendar } from 'lucide-react'
+import { Award, ExternalLink, Calendar, ImageOff } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
 import { certifications } from '../data/technical'
 import { useLanguage, tr } from '../context/LanguageContext'
 
-const categories = ['All', 'Cloud', 'AI', 'Data Science']
+const categories = ['All', 'Cloud', 'AI', 'Data Science', 'Language']
 
-function CertCard({ cert, i, lang }) {
+function CertCard({ cert, i, lang, previewSoonLabel }) {
   return (
     <motion.div
       layout
@@ -19,11 +19,18 @@ function CertCard({ cert, i, lang }) {
     >
       <a href={cert.link} target="_blank" rel="noopener noreferrer" className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-[var(--bg-surface)]">
-          <img
-            src={cert.image}
-            alt={cert.title}
-            className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-          />
+          {cert.image ? (
+            <img
+              src={cert.image}
+              alt={cert.title}
+              className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-[var(--text-dim)]">
+              <ImageOff size={28} strokeWidth={1.5} />
+              <span className="text-xs font-mono">{previewSoonLabel}</span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
           <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="w-8 h-8 rounded-full flex items-center justify-center"
@@ -130,7 +137,7 @@ export default function Certifications() {
           {/* Cert Grid */}
           <div className="grid md:grid-cols-2 gap-4">
             <AnimatePresence>
-              {filtered.map((cert, i) => <CertCard key={cert.credentialId} cert={cert} i={i} lang={lang} />)}
+              {filtered.map((cert, i) => <CertCard key={cert.credentialId} cert={cert} i={i} lang={lang} previewSoonLabel={t.technical.previewSoon} />)}
             </AnimatePresence>
           </div>
 

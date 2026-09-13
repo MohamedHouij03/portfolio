@@ -342,6 +342,19 @@ export const certifications = [
     description: 'Introduction to the data analytics workflow, data-driven decision making, and the role of a data analyst in organizations.',
     descriptionFr: 'Introduction au flux de travail de l\'analyse de données, à la prise de décision basée sur les données et au rôle d\'un analyste de données en entreprise.',
   },
+  {
+    title: 'DELF B2',
+    issuer: 'France Éducation international',
+    platform: 'DELF/DALF',
+    year: 'March 2026',
+    category: 'Language',
+    color: '#FF4E8A',
+    icon: '🇫🇷',
+    credentialId: 'DELF-B2-2026',
+    image: null,
+    description: 'Diplôme d\'Études en Langue Française (DELF), level B2 — an internationally recognized certification of upper-intermediate French proficiency across listening, reading, writing, and spoken production.',
+    descriptionFr: 'Diplôme d\'Études en Langue Française (DELF), niveau B2 — une certification reconnue internationalement attestant d\'un niveau avancé de maîtrise du français à l\'oral et à l\'écrit.',
+  },
 ]
 
 export const achievements = [

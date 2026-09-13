@@ -136,7 +136,7 @@ export const translations = {
       title2: 'Credentials',
       desc: 'Industry-recognized certifications across cybersecurity, artificial intelligence, and data science.',
       stats: { total: 'Total Certs', ai: 'AI & ML', dataScience: 'Data Science', cloud: 'Cloud & Security' },
-      categories: { All: 'All', Cloud: 'Cloud', AI: 'AI', 'Data Science': 'Data Science' },
+      categories: { All: 'All', Cloud: 'Cloud', AI: 'AI', 'Data Science': 'Data Science', Language: 'Language' },
       upcoming: 'Upcoming Certifications',
     },
     achievements: {
@@ -326,7 +326,7 @@ export const translations = {
       title2: 'Diplômes',
       desc: 'Certifications reconnues dans la cybersécurité, l\'intelligence artificielle et la data science.',
       stats: { total: 'Certifications', ai: 'IA & ML', dataScience: 'Data Science', cloud: 'Cloud & Sécurité' },
-      categories: { All: 'Toutes', Cloud: 'Cloud', AI: 'IA', 'Data Science': 'Data Science' },
+      categories: { All: 'Toutes', Cloud: 'Cloud', AI: 'IA', 'Data Science': 'Data Science', Language: 'Langue' },
       upcoming: 'Certifications à Venir',
     },
     achievements: {
