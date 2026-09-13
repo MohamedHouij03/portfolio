@@ -234,6 +234,24 @@ export const projects = [
     highlightsFr: ['Génération de factures', 'Gestion des clients', 'Développé en collaboration'],
     github: 'https://github.com/Khaledblel/facturation-tn',
   },
+  {
+    id: 8,
+    title: 'DreamCut',
+    subtitle: 'Agency workflow & video editor management platform',
+    subtitleFr: 'Plateforme de gestion des flux de travail et des monteurs vidéo',
+    category: 'Web Development',
+    tags: ['Django', 'React', 'Agency Management', 'Workflow Automation'],
+    description: 'A business management platform built for CluCut, a video production agency. DreamCut centralizes video editor assignments, project tracking, and the end-to-end editing workflow, with admin-only access to keep business and client data secure.',
+    descriptionFr: 'Une plateforme de gestion d\'entreprise conçue pour CluCut, une agence de production vidéo. DreamCut centralise l\'affectation des monteurs vidéo, le suivi des projets et l\'ensemble du flux de travail de montage, avec un accès réservé aux administrateurs pour protéger les données de l\'entreprise et des clients.',
+    color: '#7B6FF0',
+    status: 'Completed',
+    statusFr: 'Terminé',
+    year: '2026',
+    tech: ['Python', 'Django', 'Django REST Framework', 'PostgreSQL', 'React', 'Notion API'],
+    highlights: ['Video editor assignment & tracking', 'Admin-only access control', 'Notion API sync integration'],
+    highlightsFr: ['Affectation et suivi des monteurs vidéo', 'Accès réservé aux administrateurs', 'Synchronisation via l\'API Notion'],
+    live: 'https://dream-cut-xi.vercel.app/',
+  },
 ]
 
 export const experience = [

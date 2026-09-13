@@ -30,9 +30,10 @@ function SkillChip({ name, color, index }) {
 
 /* ── Project Card ────────────────────────────────────────────────────────── */
 function ProjectCard({ p, previewSoonLabel, lang }) {
-  const Wrapper = p.github ? 'a' : 'div'
-  const wrapperProps = p.github
-    ? { href: p.github, target: '_blank', rel: 'noopener noreferrer' }
+  const linkUrl = p.github || p.live
+  const Wrapper = linkUrl ? 'a' : 'div'
+  const wrapperProps = linkUrl
+    ? { href: linkUrl, target: '_blank', rel: 'noopener noreferrer' }
     : {}
 
   return (
@@ -47,7 +48,7 @@ function ProjectCard({ p, previewSoonLabel, lang }) {
       <Wrapper
         {...wrapperProps}
         className="project-card group flex flex-col h-full"
-        style={p.github ? { cursor: 'pointer' } : {}}
+        style={linkUrl ? { cursor: 'pointer' } : {}}
       >
         {/* Thumbnail */}
         <div className="relative h-52 flex-shrink-0 overflow-hidden rounded-t-[14px]"
@@ -69,6 +70,11 @@ function ProjectCard({ p, previewSoonLabel, lang }) {
           {p.github && (
             <div className="absolute bottom-3 right-3">
               <Github size={14} className="text-[var(--text-dim)]" />
+            </div>
+          )}
+          {!p.github && p.live && (
+            <div className="absolute bottom-3 right-3">
+              <ExternalLink size={14} className="text-[var(--text-dim)]" />
             </div>
           )}
         </div>
