@@ -105,12 +105,12 @@ function ProjectCard({ p, previewSoonLabel, lang }) {
 }
 
 const projectCategories = ['All', 'AI', 'Data Science', 'Computer Vision', 'Web Development', 'Mobile Applications']
-const skillTabIcons = { frontend: Layers, backend: Server, databases: Database, mobile: Smartphone, ai: Brain, dataViz: BarChart3, networking: Network, tools: Wrench }
+const skillTabIcons = { ai: Brain, dataViz: BarChart3, backend: Server, frontend: Layers, databases: Database, mobile: Smartphone, networking: Network, tools: Wrench }
 
 export default function TechnicalPortfolio() {
   const { t, lang } = useLanguage()
   const [activeFilter, setActiveFilter] = useState('All')
-  const [activeSkillTab, setActiveSkillTab] = useState('frontend')
+  const [activeSkillTab, setActiveSkillTab] = useState('ai')
 
   const filtered = activeFilter === 'All'
     ? projects
