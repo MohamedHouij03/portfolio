@@ -89,7 +89,7 @@ export default function Achievements() {
               style={{ background: 'linear-gradient(180deg, rgba(79,172,254,0.5), rgba(123,111,240,0.5), transparent)' }} />
 
             <div className="space-y-6">
-              {milestones.map((m, i) => (
+              {[...milestones].reverse().map((m, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}

@@ -64,10 +64,13 @@ function CertCard({ cert, i, lang, previewSoonLabel }) {
   )
 }
 
+const getYear = (y) => parseInt(String(y).match(/\d{4}/)?.[0] || '0', 10)
+const sortedCertifications = [...certifications].sort((a, b) => getYear(b.year) - getYear(a.year))
+
 export default function Certifications() {
   const { t, lang } = useLanguage()
   const [active, setActive] = useState('All')
-  const filtered = active === 'All' ? certifications : certifications.filter(c => c.category === active)
+  const filtered = active === 'All' ? sortedCertifications : sortedCertifications.filter(c => c.category === active)
 
   return (
     <PageTransition>

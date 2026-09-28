@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
-import { Send, Github, Linkedin, Mail, ExternalLink, MapPin, FileDown, CheckCircle, AlertCircle, MessageSquare, CalendarClock } from 'lucide-react'
+import { Send, Github, Linkedin, Mail, ExternalLink, MapPin, FileDown, CheckCircle, AlertCircle, MessageSquare } from 'lucide-react'
 import PageTransition from '../components/common/PageTransition'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -238,26 +238,6 @@ export default function Contact() {
                   </a>
                 ))}
               </div>
-
-              {/* Schedule a Meeting */}
-              <motion.a
-                href="https://calendly.com/mohamed-houij"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.02 }}
-                className="flex items-center gap-4 glass rounded-2xl p-5 border border-[rgba(79,172,254,0.15)] group"
-                style={{ background: 'linear-gradient(135deg, rgba(79,172,254,0.05), rgba(123,111,240,0.05))' }}
-              >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: 'rgba(79,172,254,0.15)', border: '1px solid rgba(79,172,254,0.3)' }}>
-                  <CalendarClock size={20} className="text-[#4FACFE]" />
-                </div>
-                <div>
-                  <p className="font-display font-semibold text-[var(--text-primary)] text-sm">{t.contact.scheduleMeeting}</p>
-                  <p className="text-xs text-[var(--text-dim)] font-mono mt-0.5">{t.contact.scheduleMeetingDesc}</p>
-                </div>
-                <ExternalLink size={14} className="text-[var(--text-faint)] group-hover:text-[#4FACFE] transition-colors ml-auto flex-shrink-0" />
-              </motion.a>
 
               {/* Ask for CV */}
               <motion.a

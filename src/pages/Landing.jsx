@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Code2, Film, Sparkles, Cpu, BarChart3, ChevronDown, Brain, Eye, Clapperboard } from 'lucide-react'
-import { SiPython, SiReact, SiTiktok, SiYoutube, SiFlutter, SiNodedotjs } from 'react-icons/si'
+import { ArrowRight, Code2, Mail, Sparkles, Cpu, BarChart3, ChevronDown, Brain, Eye } from 'lucide-react'
+import { SiPython, SiReact, SiFlutter, SiNodedotjs } from 'react-icons/si'
 import PageTransition from '../components/common/PageTransition'
 import ProfileCard from '../components/common/ProfileCard'
 import { useLanguage } from '../context/LanguageContext'
 import { asset } from '../utils/asset'
 
-const marqueeIcons = [SiPython, SiReact, SiTiktok, Brain, SiYoutube, Cpu, Clapperboard, BarChart3, SiFlutter, Sparkles, SiNodedotjs, Eye]
-const marqueeColors = ['#3776AB', '#61DAFB', 'var(--text-primary)', '#7B6FF0', '#FF0000', '#FF4E8A', '#FFB830', '#00E5A0', '#02569B', '#FF8C42', '#339933', '#4FACFE']
+const marqueeIcons = [SiPython, SiReact, Brain, Cpu, BarChart3, SiFlutter, SiNodedotjs, Eye]
+const marqueeColors = ['#3776AB', '#61DAFB', '#7B6FF0', '#FF4E8A', '#00E5A0', '#02569B', '#339933', '#4FACFE']
 
 function RotatingRole({ roles }) {
   const [idx, setIdx] = useState(0)
@@ -122,11 +122,10 @@ export default function Landing() {
               {t.landing.ctaTechnical}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link to="/creative"
-              className="group flex items-center justify-center gap-3 px-7 py-4 rounded-2xl font-body font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(120,75,160,0.3)]"
-              style={{ background: 'linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)' }}>
-              <Film size={18} />
-              {t.landing.ctaCreative}
+            <Link to="/contact"
+              className="group flex items-center justify-center gap-3 px-7 py-4 rounded-2xl font-body font-medium text-[var(--text-primary)] border border-[var(--border-soft)] transition-all duration-300 hover:scale-105 hover:border-[rgba(79,172,254,0.4)]">
+              <Mail size={18} />
+              {t.landing.ctaContact}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
@@ -169,52 +168,11 @@ export default function Landing() {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Creative Card */}
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ y: -10, scale: 1.01 }}
-            >
-              <Link to="/creative"
-                className="group relative block rounded-3xl overflow-hidden border border-[rgba(120,75,160,0.15)] glass-gold p-8 h-full"
-                style={{ background: 'linear-gradient(135deg, rgba(255,60,172,0.05) 0%, rgba(43,134,197,0.05) 100%)' }}>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: 'linear-gradient(135deg, rgba(255,60,172,0.08) 0%, rgba(43,134,197,0.08) 100%)' }} />
-
-                <div className="relative z-10 space-y-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                    style={{ background: 'linear-gradient(135deg, rgba(255,60,172,0.2), rgba(43,134,197,0.2))', border: '1px solid rgba(120,75,160,0.3)' }}>
-                    <Film size={26} className="text-[#784BA0]" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-mono text-[#784BA0] tracking-[0.2em] uppercase mb-2">{t.landing.creativeCard.tag}</p>
-                    <h3 className="font-display text-2xl font-bold text-[var(--text-primary)] leading-tight">{t.landing.creativeCard.title1}<br />{t.landing.creativeCard.title2}</h3>
-                  </div>
-                  <p className="text-[var(--text-muted)] text-sm leading-relaxed font-body">
-                    {t.landing.creativeCard.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {t.landing.creativeCard.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 text-xs rounded-full font-mono"
-                        style={{ background: 'rgba(120,75,160,0.1)', color: '#784BA0', border: '1px solid rgba(120,75,160,0.2)' }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2 text-[#784BA0] font-body font-medium text-sm group-hover:gap-3 transition-all">
-                    {t.landing.creativeCard.cta} <ArrowRight size={16} />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
+          <div className="max-w-2xl mx-auto">
             {/* Technical Card */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               whileHover={{ y: -10, scale: 1.01 }}
@@ -282,7 +240,6 @@ export default function Landing() {
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link to="/technical" className="section-tag hover:bg-[rgba(79,172,254,0.15)] transition-colors">{t.landing.technicalWorkLink}</Link>
-                <Link to="/creative" className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-wider uppercase bg-[rgba(255,184,48,0.08)] border border-[rgba(255,184,48,0.2)] text-[#FFB830] hover:bg-[rgba(255,184,48,0.15)] transition-colors">{t.landing.creativeWorkLink}</Link>
               </div>
             </motion.div>
 
@@ -295,7 +252,7 @@ export default function Landing() {
             >
               <ProfileCard
                 name="Mohamed Houij"
-                title="Software Engineer & Creative Director"
+                title="Software Engineer & AI Developer"
                 handle="mohamedhouij"
                 status="Available for Work"
                 contactText="Contact Me"

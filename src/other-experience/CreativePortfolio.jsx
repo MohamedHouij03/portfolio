@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import PageTransition from '../components/common/PageTransition'
 import BorderGlow from '../components/common/BorderGlow'
 import ScrollStack, { ScrollStackItem } from '../components/common/ScrollStack'
-import { services, portfolioItems, testimonials, workflow, stats } from '../data/creative'
+import { services, portfolioItems, testimonials, workflow, stats } from './creative'
 import { useAnimatedCounter } from '../hooks/useAnimatedCounter'
 import { useLanguage, tr } from '../context/LanguageContext'
 

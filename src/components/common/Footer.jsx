@@ -13,10 +13,10 @@ const socials = [
 export default function Footer() {
   const { t } = useLanguage()
   const links = [
-    { label: t.footer.links.creative, to: '/creative' },
     { label: t.footer.links.technical, to: '/technical' },
     { label: t.footer.links.certifications, to: '/certifications' },
     { label: t.footer.links.achievements, to: '/achievements' },
+    { label: t.footer.links.otherExperience, to: '/other-experience' },
     { label: t.footer.links.contact, to: '/contact' },
   ]
   return (

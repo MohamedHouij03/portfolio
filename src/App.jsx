@@ -10,7 +10,7 @@ import ScrollToTop from './components/common/ScrollToTop'
 import ErrorBoundary from './components/common/ErrorBoundary'
 
 import Landing from './pages/Landing'
-import CreativePortfolio from './pages/CreativePortfolio'
+import OtherExperience from './other-experience/CreativePortfolio'
 import TechnicalPortfolio from './pages/TechnicalPortfolio'
 import Certifications from './pages/Certifications'
 import Achievements from './pages/Achievements'
@@ -23,7 +23,7 @@ function AnimatedRoutes() {
     <AnimatePresence initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Landing />} />
-        <Route path="/creative" element={<CreativePortfolio />} />
+        <Route path="/other-experience" element={<OtherExperience />} />
         <Route path="/technical" element={<TechnicalPortfolio />} />
         <Route path="/certifications" element={<Certifications />} />
         <Route path="/achievements" element={<Achievements />} />

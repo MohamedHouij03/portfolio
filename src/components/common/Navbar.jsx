@@ -57,9 +57,9 @@ export default function Navbar() {
   const navLinks = [
     { label: t.nav.home, path: '/' },
     { label: t.nav.technical, path: '/technical' },
-    { label: t.nav.creative, path: '/creative' },
     { label: t.nav.certifications, path: '/certifications' },
     { label: t.nav.achievements, path: '/achievements' },
+    { label: t.nav.otherExperience, path: '/other-experience' },
     { label: t.nav.contact, path: '/contact' },
   ]
 
@@ -85,7 +85,7 @@ export default function Navbar() {
           ? 'glass border border-[rgba(79,172,254,0.1)] px-5 py-3 shadow-[var(--shadow-card)]'
           : 'px-5 py-2'
       }`}>
-        <nav className="flex items-center justify-between max-w-6xl mx-auto">
+        <nav className="relative flex items-center justify-between max-w-6xl mx-auto">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center relative overflow-hidden bg-transparent">
@@ -96,8 +96,8 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Links */}
-          <ul className="hidden lg:flex items-center gap-0.5">
+          {/* Desktop Links — absolutely centered so it stays balanced regardless of the logo/CTA widths */}
+          <ul className="hidden xl:flex items-center gap-0.5 absolute left-1/2 -translate-x-1/2">
             {navLinks.map(link => (
               <li key={link.path}>
                 <Link
@@ -122,7 +122,7 @@ export default function Navbar() {
           </ul>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             <LanguageSwitcher lang={lang} setLang={setLang} open={langOpen} setOpen={setLangOpen} />
             <button
               onClick={toggleTheme}
@@ -139,7 +139,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <LanguageSwitcher lang={lang} setLang={setLang} open={langOpen} setOpen={setLangOpen} />
             <button
               onClick={toggleTheme}
