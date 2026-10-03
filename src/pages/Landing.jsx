@@ -252,7 +252,7 @@ export default function Landing() {
             >
               <ProfileCard
                 name="Mohamed Houij"
-                title="Software Engineer & AI Developer"
+                title="Data Science & AI Engineering Student"
                 handle="mohamedhouij"
                 status="Available for Work"
                 contactText="Contact Me"
